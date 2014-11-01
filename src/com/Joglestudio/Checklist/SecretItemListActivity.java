@@ -6,17 +6,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
 import android.widget.*;
 import org.apache.http.util.EncodingUtils;
-import org.w3c.dom.Text;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.*;
-import java.util.zip.Inflater;
 
 
-public class ItemListActivity extends ListActivity {
+public class SecretItemListActivity extends ListActivity {
     /**
      * Called when the activity is first created.
      */
@@ -44,7 +47,11 @@ public class ItemListActivity extends ListActivity {
         setListAdapter(adapter);
         setContentView(R.layout.items);
 
+        TextView title = (TextView)findViewById(R.id.title);
+
         changeTheme();
+        title.setTextColor(0xFF27C7FF);
+
         //aboutButton
         Button aboutButton = (Button) findViewById(R.id.about);
         aboutButton.setOnClickListener(new Button.OnClickListener() {
@@ -56,10 +63,10 @@ public class ItemListActivity extends ListActivity {
             @Override
             public boolean onLongClick(View view) {
                 Intent secretIntent = new Intent();
-                secretIntent.setClass(ItemListActivity.this, SecretItemListActivity.class);
+                secretIntent.setClass(SecretItemListActivity.this, ItemListActivity.class);
                 startActivity(secretIntent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                ItemListActivity.this.finish();
+                SecretItemListActivity.this.finish();
                 return true;
             }
         });
@@ -69,15 +76,15 @@ public class ItemListActivity extends ListActivity {
         addItemButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent addItemIntent = new Intent();
-                addItemIntent.setClass(ItemListActivity.this, AddItemActivity.class);
+                addItemIntent.setClass(SecretItemListActivity.this, SecretAddItemActivity.class);
 
-                String numString = readFileData("count.dat");
+                String numString = readFileData("scount.dat");
                 int num = Integer.parseInt(numString);
                 addItemIntent.putExtra("position", num);
 
                 startActivity(addItemIntent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                ItemListActivity.this.finish();
+                SecretItemListActivity.this.finish();
             }
         });
 
@@ -92,21 +99,21 @@ public class ItemListActivity extends ListActivity {
                         public void onClick(View view) {
                             String s = (String) itemList.get(pos).get("tick");
 
-                            String item = readFileData(pos + ".dat");
+                            String item = readFileData("s" + pos + ".dat");
                             DataModel dataModel = DataModel.getUnpackedData(item);
 
                             if (s.equals("√")) {
                                 dataModel.setIsTicked(false);
                                 itemList.get(pos).put("tick", " ");
-                                showToast("[" + itemList.get(pos).get("title").toString() + "] " + "未完成");
+                                //showToast("[" + itemList.get(pos).get("title").toString() + "] " + "未完成");
                             } else {
                                 dataModel.setIsTicked(true);
                                 itemList.get(pos).put("tick", "√");
-                                showToast("[" + itemList.get(pos).get("title").toString() + "] " + "已完成");
+                                //showToast("[" + itemList.get(pos).get("title").toString() + "] " + "已完成");
                             }
 
                             String newString = DataModel.getPackedString(dataModel);
-                            writeFileData(pos + ".dat", newString);
+                            writeFileData("s" + pos + ".dat", newString);
 
                             SimpleAdapter adapter = (SimpleAdapter) getListView().getAdapter();
                             adapter.notifyDataSetChanged();
@@ -119,11 +126,11 @@ public class ItemListActivity extends ListActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent toEditIntent = new Intent();
-                toEditIntent.setClass(ItemListActivity.this, EditItemActivity.class);
+                toEditIntent.setClass(SecretItemListActivity.this, SecretEditItemActivity.class);
                 toEditIntent.putExtra("position", i);
                 startActivity(toEditIntent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                ItemListActivity.this.finish();
+                SecretItemListActivity.this.finish();
                 return true;
             }
         });
@@ -132,7 +139,7 @@ public class ItemListActivity extends ListActivity {
     private void init(){
         int i;
         //For people who first use
-        if (!isFileExists("count.dat")){
+        if (!isFileExists("scount.dat")){
             Calendar calendar=Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int monthOfYear = calendar.get(Calendar.MONTH);
@@ -140,25 +147,24 @@ public class ItemListActivity extends ListActivity {
             int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
 
-            String a = "欢迎使用备忘录\n"+year+" "+monthOfYear+" "+dayOfMonth+" "+hourOfDay+" "+minute+"\n2\ntrue";
-            writeFileData("0.dat", a);
-            writeFileData("count.dat", "1");
-            writeFileData("theme.dat", "0");
-            showInfo();
+            String a = "进入私密空间时，标题“清单”将会变为蓝色\n"+year+" "+monthOfYear+" "+dayOfMonth+" "+hourOfDay+" "+minute+"\n2\ntrue";
+            writeFileData("s0.dat", a);
+            writeFileData("scount.dat", "1");
+            writeFileData("stheme.dat", "0");
         }
 
         //Get number of items
-        String numberOfItemsString = readFileData("count.dat");
+        String numberOfItemsString = readFileData("scount.dat");
         int numberOfItems = Integer.parseInt(numberOfItemsString);
-        themeNum = Integer.parseInt(readFileData("theme.dat"));
+        themeNum = Integer.parseInt(readFileData("stheme.dat"));
 
         for (i = 0; i < numberOfItems; i++){
-            if (isFileExists(i+".dat")) {
+            if (isFileExists("s"+i+".dat")) {
                 Map<String, Object> map = makemap(i);
                 itemList.add(map);
             }
             else{
-                writeFileData("count.dat", i+"");
+                writeFileData("scount.dat", i+"");
                 break;
             }
         }
@@ -167,7 +173,7 @@ public class ItemListActivity extends ListActivity {
 
     public Map<String, Object> makemap(int i){
         Map<String, Object> map = new HashMap<String, Object>();
-        String item = readFileData(i + ".dat");
+        String item = readFileData("s" + i + ".dat");
         DataModel dataModel = DataModel.getUnpackedData(item);
         map.put("title", dataModel.getItemName());
         if (dataModel.getMinute()>= 10)
@@ -274,7 +280,7 @@ public class ItemListActivity extends ListActivity {
     }
 
     public void showMenu(){
-        new AlertDialog.Builder(ItemListActivity.this)
+        new AlertDialog.Builder(SecretItemListActivity.this)
                 .setTitle("设定")
                 .setItems(menu, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int i) {
@@ -293,12 +299,12 @@ public class ItemListActivity extends ListActivity {
                 .setTitle("选择主题")
                 .setItems(theme, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int i) {
-                        writeFileData("theme.dat", i + "");
+                        writeFileData("stheme.dat", i + "");
                         Intent themeIntent = new Intent();
-                        themeIntent.setClass(ItemListActivity.this, ItemListActivity.class);
+                        themeIntent.setClass(SecretItemListActivity.this, SecretItemListActivity.class);
                         startActivity(themeIntent);
                         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-                        ItemListActivity.this.finish();
+                        SecretItemListActivity.this.finish();
                     }
                 })
                 .show();
@@ -342,22 +348,11 @@ public class ItemListActivity extends ListActivity {
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                new AlertDialog.Builder(ItemListActivity.this)
-                        .setTitle("备忘录")
-                        .setMessage("您确定要退出吗？")
-                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ItemListActivity.this.finish();
-                            }
-                        })
-                        .setPositiveButton("取消", new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
+                    Intent secretIntent = new Intent();
+                    secretIntent.setClass(SecretItemListActivity.this, ItemListActivity.class);
+                    startActivity(secretIntent);
+                    overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+                    SecretItemListActivity.this.finish();
                 break;
             case KeyEvent.KEYCODE_MENU:
                 showMenu();
@@ -367,7 +362,7 @@ public class ItemListActivity extends ListActivity {
     }
 
     private void changeTheme(){
-        themeNum = Integer.parseInt(readFileData("theme.dat"));
+        themeNum = Integer.parseInt(readFileData("stheme.dat"));
         if (themeNum == 1) {
             RelativeLayout titleBar1 = (RelativeLayout) findViewById(R.id.titlebar1);
             titleBar1.setBackgroundColor(0xFFFFFFFF);
@@ -384,13 +379,4 @@ public class ItemListActivity extends ListActivity {
         }
     }
 
-    public void showToast(String text) {
-        if(mToast == null) {
-            mToast = Toast.makeText(ItemListActivity.this, text, Toast.LENGTH_SHORT);
-        } else {
-            mToast.setText(text);
-            mToast.setDuration(Toast.LENGTH_SHORT);
-        }
-        mToast.show();
-    }
 }

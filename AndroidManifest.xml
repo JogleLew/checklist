@@ -13,22 +13,43 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".SecretItemListActivity"
+                  android:label="清单">
+        </activity>
         <activity android:name=".AddItemActivity"
+                  android:label="清单">
+        </activity>
+        <activity android:name=".SecretAddItemActivity"
                   android:label="清单">
         </activity>
         <activity android:name=".EditItemActivity"
                   android:label="清单">
         </activity>
+        <activity android:name=".SecretEditItemActivity"
+                  android:label="清单">
+        </activity>
         <activity android:name=".TimePickForAddActivity"
+                  android:label="清单">
+        </activity>
+        <activity android:name=".SecretTimePickForAddActivity"
                   android:label="清单">
         </activity>
         <activity android:name=".TimePickForEditActivity"
                   android:label="清单">
         </activity>
+        <activity android:name=".SecretTimePickForEditActivity"
+                  android:label="清单">
+        </activity>
         <activity android:name=".ImagePickForAddActivity"
                   android:label="清单">
         </activity>
+        <activity android:name=".SecretImagePickForAddActivity"
+                  android:label="清单">
+        </activity>
         <activity android:name=".ImagePickForEditActivity"
+                  android:label="清单">
+        </activity>
+        <activity android:name=".SecretImagePickForEditActivity"
                   android:label="清单">
         </activity>
     </application>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal" android:layout_width="fill_parent"
+              android:layout_height="wrap_content" android:weightSum="1" android:id="@+id/line">
+
+
+    <ImageView android:id="@+id/img"
+               android:layout_width="64dp"
+               android:layout_height="64dp"
+               android:layout_gravity="center_vertical" android:layout_margin="3dp"/>
+
+    <LinearLayout android:orientation="vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_gravity="center_vertical">
+
+        <TextView android:id="@+id/title"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="#FF000000"
+                  android:textSize="25dp" android:text="aaaaaaaa" android:textIsSelectable="false"/>
+        <TextView android:id="@+id/info"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="#FF000000"
+                  android:textSize="15dp" android:text="bbbbbbb"/>
+
+    </LinearLayout>
+    <TextView
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="√"
+            android:id="@+id/tick" android:textSize="40dp" android:layout_gravity="center_vertical"
+            android:textColor="#ff27c7ff"/>
+
+
+</LinearLayout>

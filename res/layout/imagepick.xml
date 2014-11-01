@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:id="@+id/imagepicklayout">
+
+    <RelativeLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="64dp"
+                    android:id="@+id/titlebar5" android:layout_gravity="center_vertical">
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="取消d"
+                android:id="@+id/backtoadd3" android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" android:visibility="invisible"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="清单" android:id="@+id/title5"
+                  android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall" android:text="选择图片"
+                  android:id="@+id/subtitle5" android:layout_row="1" android:layout_column="0"
+                  android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+        <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:layout_alignParentBottom="true" android:id="@+id/space2"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:id="@+id/backtoadd2" android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" android:background="@drawable/w1"/>
+    </RelativeLayout>
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/android:list"/>
+</LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:weightSum="1" android:id="@+id/edititemlayout">
+
+    <RelativeLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="64dp"
+                    android:id="@+id/titlebar3" android:layout_gravity="center_horizontal">
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="确定"
+                android:id="@+id/sureeditgroup" android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" android:background="@drawable/w1"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="清单" android:id="@+id/title6"
+                  android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall" android:text="编辑项目"
+                  android:id="@+id/subtitle6" android:layout_row="1" android:layout_column="0"
+                  android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="取消"
+                android:id="@+id/backtomain2" android:layout_alignParentBottom="true" android:layout_alignParentStart="true"
+                android:background="@drawable/w1"/>
+    </RelativeLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="\n项目名：\n"
+            android:id="@+id/textname3"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edittext2" android:textSize="23dp" android:singleLine="true"
+            android:textCursorDrawable="@null"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="\n时间：\n"
+                  android:id="@+id/textname4" android:layout_gravity="center_vertical"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="2014年12月31日\n23点59分"
+                android:id="@+id/edittime2" android:layout_gravity="center_vertical" android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改时间"
+                android:id="@+id/choosetime2" android:layout_gravity="center_vertical"
+                />
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="\n图片：\n"
+                android:id="@+id/textView2"/>
+        <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/imagedisplay2" android:layout_gravity="center_vertical"/>
+        <Space
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改图片"
+                android:id="@+id/chooseimage2" android:layout_gravity="center"
+                />
+    </LinearLayout>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除项目..."
+            android:id="@+id/delete" android:layout_gravity="center"/>
+</LinearLayout>

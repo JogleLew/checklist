@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:weightSum="1" android:id="@+id/additemlayout">
+
+    <RelativeLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="64dp"
+                    android:id="@+id/titlebar2" android:layout_gravity="center_horizontal">
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="确定"
+                android:id="@+id/sureaddgroup" android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" android:background="@drawable/w1"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="清单" android:id="@+id/title2"
+                  android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall" android:text="新增项目"
+                  android:id="@+id/subtitle2" android:layout_row="1" android:layout_column="0"
+                  android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="取消"
+                android:id="@+id/backtomain" android:layout_alignParentBottom="true" android:layout_alignParentStart="true"
+                android:background="@drawable/w1"/>
+    </RelativeLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="\n项目名：\n"
+            android:id="@+id/textname1"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edittext1" android:textSize="23dp" android:singleLine="true"
+            android:textCursorDrawable="@null"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="\n时间：\n"
+                  android:id="@+id/textname2"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="未设置"
+                android:id="@+id/edittime1" android:layout_gravity="center_vertical" android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择时间"
+                android:id="@+id/choosetime" android:layout_gravity="center"
+                />
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="\n图片：\n"
+                android:id="@+id/textView2"/>
+        <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/imagedisplay" android:layout_gravity="center_vertical"/>
+        <Space
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择图片"
+                android:id="@+id/chooseimage" android:layout_gravity="center"
+                />
+    </LinearLayout>
+</LinearLayout>
